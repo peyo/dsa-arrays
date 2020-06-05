@@ -1,18 +1,26 @@
-const Array = require("./array");
+// Kadane's algorithm
+// O(n)
 
-function main() {
-  Array.SIZE_RATIO = 3;
+const max = (arr) => {
 
-  let arr = new Array();
+  let maxSum = 0;
+  let maxEnd = 0;
 
-  arr.push(3);
-  arr.push(5);
-  arr.push(15);
-  arr.push(19);
-  arr.push(45);
-  arr.push(10);
-  arr.print();
-  console.log(arr);
+  for (let i = 0; i < arr.length; i++) {
+    maxEnd = maxEnd + arr[i]
+    console.log("maxSum:", maxSum)
+
+    if (maxEnd < 0) {
+      maxEnd = 0
+    }
+    if (maxSum < maxEnd) {
+      console.log("maxEnd:", maxEnd)
+      maxSum = maxEnd
+    }
+  }
+
+  return maxSum;
 }
 
-return (main())
+const arr = [4, 6, -3, 5, -2, 1];
+console.log(max(arr));

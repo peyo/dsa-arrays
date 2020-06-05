@@ -15,22 +15,114 @@
     console.log(arr);
   }
 
-What is the length, capacity and memory address of your array?
+  What is the length, capacity and memory address of your array?
 
-  length: 1 
-  capacity: 3
-  memory address: 3
+    length: 1 
+    capacity: 3
+    memory address: 3
 
-Add the following in the main function and then print the array:
+  Add the following in the main function and then print the array:
 
-  arr.push(5);
-  arr.push(15);
-  arr.push(19);
-  arr.push(45);
-  arr.push(10);
+    arr.push(5);
+    arr.push(15);
+    arr.push(19);
+    arr.push(45);
+    arr.push(10);
 
-What is the length, capacity and memory address of your array? Explain the result of your program after adding the new lines of code.
+  What is the length, capacity and memory address of your array? Explain the result of your program after adding the new lines of code.
 
-  length: 6
-  capacity: 12
-  memory address: 3
+    length: 6
+    capacity: 12
+    memory address: 3
+
+    {1} When 3 is pushed into the array, the length changes to 1, the capacity is increased to 3 since the size ratio is 3.
+
+    {2} When 5 is pushed into the array, the length changes to 2, the capacity remains at 3. The head stays at 3.
+
+    {3} When 15 is pushed into the array, the length changes to 3. Length and capacity are 3.
+
+    {4} When 19 is pushed into the array, the length changes to 4. Because length is greater than capacity the resize function is invoked. The capacity is increased to 12 due to the parameter inside the resize invocation, ((4 + 1) * 3). The ptr is where the new array starts at 3. The header is changed to 15.
+
+    {5} When 45 is pushed into the array, the length increases to 5. The capacity remains the same since length is less than capacity. The ptr and header remain the same.
+
+      {6} When 10 is pushed into the array, the length increases to 6. The capacity remains the same. The ptr and header remain the same.
+
+3. Exploring the pop() method
+
+  Add the following in the main function and then print the array:
+
+    Length: 3
+    Capacity: 12
+    Ptr: 3
+    
+    19, 45, 10 remain in the array at the moment, but when new values are pushed into the array, they will be replaced.
+
+  4. Understanding more about how arrays work
+
+  Print the 1st item in the array arr.
+
+    In array.js: 
+
+    print() {
+      console.log(memory.memory[0]);
+    }
+
+  Empty the array and add just 1 item: arr.push("tauhida");
+
+  Print this 1 item that you just added. What is the result? Can you explain your result?
+
+    NaN is returned. Float64Array accepts either integers or floating-point numbers.
+
+  What is the purpose of the _resize() function in your Array class?
+
+    It increases the capacity.
+
+5. URLify a string
+
+  const urlify = (url) => {
+    const newUrl = url.replace(/ /g, "%20")
+    return newUrl
+  }
+
+  const url = "www.thinkful.com /tauh ida parv een";
+  console.log(urlify(url))
+
+  Time complexity: O(1)
+
+6. Filtering an array
+
+  Imagine you have an array of numbers. Write an algorithm to remove all numbers less than 5 from the array. DO NOT use Array's built-in .filter() method here; write the algorithm from scratch.
+
+7. max sum in the array
+
+  You are given an array containing positive and negative integers. Write an algorithm which will find the largest sum in a continuous sequence.
+
+  Input: [4, 6, -3, 5, -2, 1]
+  Output: 12
+
+    // Kadane's algorithm
+    // O(n)
+
+    const max = (arr) => {
+
+      let maxSum = 0;
+      let maxEnd = 0;
+
+      for (let i = 0; i < arr.length; i++) {
+        maxEnd = maxEnd + arr[i]
+        console.log("maxSum:", maxSum)
+
+        if (maxEnd < 0) {
+          maxEnd = 0
+        }
+        if (maxSum < maxEnd) {
+          console.log("maxEnd:", maxEnd)
+          maxSum = maxEnd
+        }
+      }
+
+      return maxSum;
+    }
+
+    const arr = [4, 6, -3, 5, -2, 1];
+    console.log(max(arr));

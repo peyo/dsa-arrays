@@ -1,20 +1,20 @@
-const Memory = require("./memory");
+const Memory = require("./02-memory");
 const memory = new Memory();
 
 class Array {
   constructor() {
     this.length = 0;
-    this._capacity = 0;  // {Question 1} Why is the capacity named underscore capacity?
+    this._capacity = 0;
     this.ptr = memory.allocate(this.length);
   }
-  
+
   print() {
     console.log(memory);
   }
 
   // Pushing new values into the end of the array:
   push(value) {
-    // If the length is less than the capacity...
+    // If the length is greater than or equal to the capacity...
     if (this.length >= this._capacity) {
       // ...resize the array to increase the capacity * by the size ratio.
       this._resize((this.length + 1) * Array.SIZE_RATIO);
