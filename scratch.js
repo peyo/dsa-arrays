@@ -1,26 +1,19 @@
-// Kadane's algorithm
-// O(n)
+const checkRotation = (strOne, strTwo) => {
+  let strArr = strOne.split("");
 
-const max = (arr) => {
-
-  let maxSum = 0;
-  let maxEnd = 0;
-
-  for (let i = 0; i < arr.length; i++) {
-    maxEnd = maxEnd + arr[i]
-    console.log("maxSum:", maxSum)
-
-    if (maxEnd < 0) {
-      maxEnd = 0
-    }
-    if (maxSum < maxEnd) {
-      console.log("maxEnd:", maxEnd)
-      maxSum = maxEnd
-    }
+  if (strOne === "" && strTwo == "") {
+    return true;
   }
 
-  return maxSum;
-}
+  for (let i = 0; i < strArr.length; i++) {
+    strArr.unshift(strArr.pop());
+    if (strArr.join("") === strTwo) {
+      return true;
+    }
+  }
+  return false;
+};
 
-const arr = [4, 6, -3, 5, -2, 1];
-console.log(max(arr));
+const strOne = "amazon";
+const strTwo = "azonma";
+console.log(checkRotation(strOne, strTwo));

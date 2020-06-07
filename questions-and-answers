@@ -57,7 +57,7 @@
     
     19, 45, 10 remain in the array at the moment, but when new values are pushed into the array, they will be replaced.
 
-  4. Understanding more about how arrays work
+4. Understanding more about how arrays work
 
   Print the 1st item in the array arr.
 
@@ -93,6 +93,20 @@
 
   Imagine you have an array of numbers. Write an algorithm to remove all numbers less than 5 from the array. DO NOT use Array's built-in .filter() method here; write the algorithm from scratch.
 
+  const filter = (arr) => {
+
+    const newArr = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] > 5) {
+        newArr.push(arr[i])
+      }
+    }
+    return newArr;
+  }
+
+  const arr = [4, 6, -3, 5, -2, 1, 7, 10];
+  console.log(filter(arr));
+
 7. max sum in the array
 
   You are given an array containing positive and negative integers. Write an algorithm which will find the largest sum in a continuous sequence.
@@ -126,3 +140,190 @@
 
     const arr = [4, 6, -3, 5, -2, 1];
     console.log(max(arr));
+
+8. Merge arrays
+
+  Imagine you have 2 arrays which have already been sorted. Write an algorithm to merge the 2 arrays into a single array, which should also be sorted.
+
+  Input:[1, 3, 6, 8, 11] and [2, 3, 5, 8, 9, 10]
+  Output:[1, 2, 3, 3, 5, 6, 8, 8, 9, 10, 11]
+
+    const merge = () => {
+
+      const merged = one.concat(two);
+      merged.sort((a, b) => {return a - b});
+      return merged;
+    }
+
+    const one = [1, 3, 6, 8, 11];
+    const two = [2, 3, 5, 8, 9, 10];
+
+    console.log(merge(one, two))
+
+9. Remove characters
+
+  Write an algorithm that deletes given characters from a string. For example, given a string of "Battle of the Vowels: Hawaii vs. Grozny" and the characters to be removed are "aeiou", the algorithm should transform the original string to "Bttl f th Vwls: Hw vs. Grzny". Do not use Javascript's filter, split, or join methods.
+
+  Input:'Battle of the Vowels: Hawaii vs. Grozny', 'aeiou'
+  Output: 'Bttl f th Vwls: Hw vs. Grzny'
+
+    const remove = (str) => {
+
+      return str.replace(/[aeiou]/g, "")
+    }
+
+    const str = "Battle of the Vowels: Hawaii vs. Grozny"
+    console.log(remove(str))
+
+10. Products
+
+  Given an array of numbers, write an algorithm to find out the products of every other number except the number at each index.
+
+  Input:[1, 3, 9, 4]
+  Output:[108, 36, 12, 27]
+
+    const prod = (arr) => {
+
+      if (arr.length < 2) {
+        throw new Error("This algorithm requires 3 or more elements.")
+      }
+
+      const productsOfAllIntsExpectIndex = [];
+
+      let productSoFar = 1;
+      for (let i = 0; i < arr.length; i++) {
+        productsOfAllIntsExpectIndex[i] = productSoFar;
+        productSoFar *= arr[i];
+      }
+
+      productSoFar = 1;
+      for (let i = arr.length - 1; i >= 0; i--) {
+        productsOfAllIntsExpectIndex[i] *= productSoFar;
+        productSoFar *= arr[i];
+      }
+
+      return (productsOfAllIntsExpectIndex)
+    }
+
+    const arr = [1]
+    console.log(prod(arr))
+
+11. 2D array
+
+  Write an algorithm which searches through a 2D array, and whenever it finds a 0 should set the entire row and column to 0.
+
+  Input: [
+    [1,0,1,1,0],
+    [0,1,1,1,0],
+    [1,1,1,1,1],
+    [1,0,1,1,1],
+    [1,1,1,1,1]
+  ];
+
+  Output: [
+    [0,0,0,0,0],
+    [0,0,0,0,0],
+    [0,0,1,1,0],
+    [0,0,0,0,0],
+    [0,0,1,1,0]
+  ];
+
+    var setZeroes = (matrix) => {
+
+      const n = matrix.length,    // row
+        m = matrix[0].length;     // column
+      if (n < 1 || m < 1) {
+        return;
+      }
+
+      // Flagging:
+      // Flagging the first cell in the row and column as 0 when a cell with 0 is discovered.
+      let firstCol = false;
+      // Traverse to each new row...
+      for (let i = 0; i < n; i++) {
+        // If the first cell in the row is 0, mark it as true.
+        if (matrix[i][0] == 0) {
+          firstCol = true;
+        }
+        // Traverse to each column in each row...
+        for (let j = 1; j < m; j++) {
+          // If the cell is zero...
+          if (matrix[i][j] == 0) {
+            // Mark the first cell in the row as 0.
+            matrix[i][0] = 0;
+            // Mark the first cell in the column as 0.
+            matrix[0][j] = 0;
+          }
+        }
+      }
+
+      // Changing the cells:
+      // Starting at (1, 1) and traversing to each cell...
+      for (let i = 1; i < n; i++) {
+        for (let j = 1; j < m; j++){
+          // If the cell in row 0 or column 0 is 0, change the value in the traversed cell to 0.
+          if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+            matrix[i][j] = 0;
+          }
+        }
+      }
+
+      // If (0, 0) is 0...
+      if (matrix[0][0] == 0) {
+        // Traverse to the first cell in each column...
+        for (let j = 0; j < m; j++){
+          // Mark the first cell in each column as 0.
+          matrix[0][j] = 0;
+        }
+      }
+
+      // If first column is true aka there is a 0...
+      if (firstCol) {
+        // Traverse to each row...
+        for (let i = 0; i < n; i++){
+          // Mark the first cell in each row as 0.
+          matrix[i][0] = 0;
+        }
+      }
+    };
+
+    const matrix = [
+      [1, 0, 1, 1, 0],
+      [0, 1, 1, 1, 0],
+      [1, 1, 1, 1, 1],
+      [1, 0, 1, 1, 1],
+      [1, 1, 1, 1, 1],
+    ];
+    console.log(setZeroes(matrix));
+
+12. String rotation
+
+  Given 2 strings, str1 and str2, write a program that checks if str2 is a rotation of str1.
+
+  Input: amazon, azonma
+
+  Output: False
+
+  Input: amazon, azonam
+
+  Output: true
+
+    const checkRotation = (strOne, strTwo) => {
+      let strArr = strOne.split("");
+
+      if (strOne === "" && strTwo == "") {
+        return true;
+      }
+
+      for (let i = 0; i < strArr.length; i++) {
+        strArr.unshift(strArr.pop());
+        if (strArr.join("") === strTwo) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    const strOne = "amazon";
+    const strTwo = "azonma";
+    console.log(checkRotation(strOne, strTwo));
